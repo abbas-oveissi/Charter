@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 
-@Database(entities = [TicketPrice::class], version = 2)
+@Database(entities = [TicketPrice::class], version = 2, exportSchema = false)
 @TypeConverters(TiviTypeConverters::class)
 abstract class TicketPriceDatabase : RoomDatabase() {
 

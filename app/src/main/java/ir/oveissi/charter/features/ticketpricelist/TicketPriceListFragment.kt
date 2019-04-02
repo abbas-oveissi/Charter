@@ -12,6 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.paging.DataSource
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
+import androidx.paging.toLiveData
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -44,7 +45,7 @@ class TicketPriceListFragment : Fragment() {
     private fun setupRV() {
         rvTicketPrices.layoutManager = LinearLayoutManager(activity as Context)
         rvTicketPrices.adapter = adapter
-        rvTicketPrices.addItemDecoration(DividerItemDecoration(activity as Context,DividerItemDecoration.VERTICAL))
+        rvTicketPrices.addItemDecoration(DividerItemDecoration(activity as Context, DividerItemDecoration.VERTICAL))
     }
 
     private fun findViews(root: View) {
@@ -55,10 +56,6 @@ class TicketPriceListFragment : Fragment() {
     private fun createDbLiveData(): LiveData<PagedList<TicketPrice>>? {
         val database = TicketPriceDatabase.getInstance(App.appContext) ?: return null
         val factory: DataSource.Factory<Int, TicketPrice> = database.ticketPriceDao().getAll()
-        val pagedListBuilder: LivePagedListBuilder<Int, TicketPrice> = LivePagedListBuilder<Int, TicketPrice>(
-            factory,
-            50
-        )
-        return pagedListBuilder.build()
+        return factory.toLiveData(50)
     }
 }
