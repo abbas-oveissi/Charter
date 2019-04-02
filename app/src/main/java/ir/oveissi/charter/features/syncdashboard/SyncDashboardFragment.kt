@@ -17,7 +17,6 @@ import ir.oveissi.charter.R
 import ir.oveissi.charter.db.TicketPriceDatabase
 import ir.oveissi.charter.sync.WorkRequestFactory
 import ir.oveissi.charter.utils.Constants
-import ir.oveissi.charter.utils.ForceDataSync
 import org.threeten.bp.format.DateTimeFormatter
 import org.threeten.bp.format.FormatStyle
 
@@ -82,8 +81,6 @@ class SyncDashboardFragment : Fragment() {
     private fun setListeners() {
 
         btnGetData.setOnClickListener {
-            ForceDataSync().execute()
-
             WorkManager.getInstance().enqueueUniqueWork(
                 Constants.UNIQUE_FORCE_SYNC,
                 ExistingWorkPolicy.KEEP,
